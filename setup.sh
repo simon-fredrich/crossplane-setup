@@ -10,7 +10,7 @@ sudo apt-get -y install podman
 
 # install minikube
 echo "install minikube"
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
 sudo dpkg -i minikube_latest_amd64.deb
 minikube start
 
@@ -24,9 +24,9 @@ source ~/.bashrc
 
 # install helm
 echo "install helm"
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
+sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+sudo chmod 700 get_helm.sh
+sudo ./get_helm.sh
 
 # install crossplane (version 1.20.0)
 echo "install crossplane"

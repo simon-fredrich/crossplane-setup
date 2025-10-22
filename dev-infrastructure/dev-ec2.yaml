@@ -96,6 +96,7 @@ Resources:
           Value: demo-ec2
         - Key: Application
           Value: !Ref AWS::StackName
+  Volume: !Ref Volume
 
 # output important values for easy viewing in cloudformation dashboard
 Outputs:

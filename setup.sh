@@ -20,7 +20,6 @@ echo 'alias kubectl="minikube kubectl --"' >> ~/.bashrc
 echo 'alias kg="kubectl get"' >> ~/.bashrc
 echo 'alias ka="kubectl apply"' >> ~/.bashrc
 echo 'alias kd="kubectl describe"' >> ~/.bashrc
-source ~/.bashrc
 
 # install helm
 echo "install helm"
@@ -35,20 +34,20 @@ helm repo update
 helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane --version 1.20.0
 
 # install crossplane-cli
-curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/main/install.sh" | XP_VERSION=v1.20.0 sh
+sudo curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/main/install.sh" | XP_VERSION=v1.20.0 sh
 sudo mv crossplane /usr/local/bin
 
 # install provider-kubernetes
 echo "install provider-kubernetes"
-kubectl apply -f provider/provider-kubernetes.yaml
+minikube kubectl -- apply -f provider/provider-kubernetes.yaml
 
 # install provider-gitlab
 echo "install provider-gitlab"
-kubectl apply -f provider/provider-gitlab.yaml
+minikube kubectl -- apply -f provider/provider-gitlab.yaml
 
 # install provider-helm
 echo "install provider-helm"
-kubectl apply -f provider/provider-helm.yaml
+minikube kubectl -- apply -f provider/provider-helm.yaml
 
 # create daily shutdown
 echo "create crontab for daily shutdown of the server"

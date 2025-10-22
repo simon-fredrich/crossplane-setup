@@ -60,20 +60,6 @@ Resources:
       ToPort: -1
       SourceSecurityGroupId: !Ref mySG
 
-  # create volume for EC2 instance
-  Volume:
-    Type: AWS::EC2::Volume
-    Properties:
-      AvailabilityZone: eu-central-1
-      Encrypted: false
-      Size: 30
-      Tags:
-        - Key: Name
-          Value: demo-volume
-        - Key: Application
-          Value: !Ref AWS::StackName
-      VolumeType: gp3
-
   # EC2 instance which will have access for http and ssh
   EC2Instance:
     Type: AWS::EC2::Instance
@@ -85,18 +71,24 @@ Resources:
         - !Ref mySG
       KeyName: !Ref KeyPairName
       ImageId: !Ref InstanceImageId
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs: 
+            VolumeSize: 30
+            VolumeType: gp3
+            Encrypted: false
+            DeleteOnTermination: true
       UserData: !Base64 |
         #!/bin/bash -xe
 
         git clone https://github.com/simon-fredrich/crossplane-setup.git
         cd crossplane-setup
-        ./setup.sh
+        sh ./setup.sh
       Tags:
         - Key: Name
           Value: demo-ec2
         - Key: Application
           Value: !Ref AWS::StackName
-  Volume: !Ref Volume
 
 # output important values for easy viewing in cloudformation dashboard
 Outputs:

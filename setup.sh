@@ -14,6 +14,14 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest
 sudo dpkg -i minikube_latest_amd64.deb
 minikube start
 
+# create shortcuts for following commands
+echo "create shortcuts"
+echo 'alias kubectl="minikube kubectl --"' >> ~/.bashrc
+echo 'alias kg="kubectl get"' >> ~/.bashrc
+echo 'alias ka="kubectl apply"' >> ~/.bashrc
+echo 'alias kd="kubectl describe"' >> ~/.bashrc
+source ~/.bashrc
+
 # install helm
 echo "install helm"
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -41,14 +49,6 @@ kubectl apply -f provider/provider-gitlab.yaml
 # install provider-helm
 echo "install provider-helm"
 kubectl apply -f provider/provider-helm.yaml
-
-# create shortcuts
-echo "create shortcuts"
-echo 'alias kubectl="minikube kubectl --"' >> ~/.bashrc
-echo 'alias kg="kubectl get"' >> ~/.bashrc
-echo 'alias ka="kubectl apply"' >> ~/.bashrc
-echo 'alias kd="kubectl describe"' >> ~/.bashrc
-source ~/.bashrc
 
 # create daily shutdown
 echo "create crontab for daily shutdown of the server"

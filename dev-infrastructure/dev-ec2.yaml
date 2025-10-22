@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Sample template to provision an EC2 Instance with public IP. Create
-  a Security Group and associate with this EC2. You will be billed for the AWS
-  resources used if you create a stack from this template. After deleting stack,
-  remember to delete the associated S3 bucket.
+  a Security Group and an EBS volume which get associate with this EC2.
 
 # get the name of the base stack which is created first and has VPC details
 Parameters:
@@ -67,7 +65,14 @@ Resources:
     Type: AWS::EC2::Volume
     Properties:
       AvailabilityZone: eu-central-1
-      
+      Encrypted: false
+      Size: 30
+      Tags:
+        - Key: Name
+          Value: demo-volume
+        - Key: Application
+          Value: !Ref AWS::StackName
+      VolumeType: gp3
 
   # EC2 instance which will have access for http and ssh
   EC2Instance:

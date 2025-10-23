@@ -1,0 +1,42 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: gitlab-group-project
+spec:
+  compositeTypeRef:
+    apiVersion: gitlab.example.org/v1alpha1
+    kind: GitLabBundle
+  mode: Pipeline
+  pipeline:
+    - step: render-templates
+      functionRef:
+        name: function-go-templating
+      input:
+        apiVersion: gotemplating.fn.crossplane.io/v1beta1
+        kind: GoTemplate
+        source: Inline
+        inline:
+          template: |
+            ---
+            apiVersion: groups.gitlab.crossplane.io/v1alpha1
+            kind: Group
+            metadata:
+              name: {{ .observed.composite.resource.spec.groupName }}
+              annotations:
+                crossplane.io/external-name: {{ .observed.composite.resource.spec.groupName }}
+            spec:
+              forProvider:
+                name: {{ .observed.composite.resource.spec.groupName }}
+                path: {{ .observed.composite.resource.spec.groupPath }}
+                parentId: 117234999
+            ---
+            apiVersion: projects.gitlab.crossplane.io/v1alpha1
+            kind: Project
+            metadata:
+              name: {{ .observed.composite.resource.spec.projectName }}
+              annotations:
+                crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName }}
+            spec:
+              forProvider:
+                name: {{ .observed.composite.resource.spec.projectName }}
+                namespaceId: {{ .observed.}}

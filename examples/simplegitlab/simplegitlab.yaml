@@ -1,0 +1,10 @@
+apiVersion: gitlab.example.org/v1alpha1
+kind: SimpleGitlab
+metadata:
+  name: simple-gitlab-one
+  namespace: simplegitlabs.gitlab.example.org
+spec:
+  projectName1: project1-from-composition
+  projectName2: project2-from-composition
+  namespaceId1: 117234999
+  namespaceId2: 116609428

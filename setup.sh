@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -x
 
 # update ubuntu repositories
 echo "update ubuntu repositories"
@@ -16,10 +16,11 @@ minikube start
 
 # create shortcuts for following commands
 echo "create shortcuts"
-echo 'alias kubectl="minikube kubectl --"' >> ~/.bashrc
-echo 'alias kg="kubectl get"' >> ~/.bashrc
-echo 'alias ka="kubectl apply"' >> ~/.bashrc
-echo 'alias kd="kubectl describe"' >> ~/.bashrc
+echo 'alias kubectl="minikube kubectl --"' >> /home/ubuntu/.bashrc
+echo 'alias kg="kubectl get"' >> /home/ubuntu/.bashrc
+echo 'alias ka="kubectl apply"' >> /home/ubuntu/.bashrc
+echo 'alias kd="kubectl describe"' >> /home/ubuntu/.bashrc
+source /home/ubuntu/.bashrc
 
 # install helm
 echo "install helm"

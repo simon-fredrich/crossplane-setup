@@ -72,15 +72,15 @@ Resources:
       KeyName: !Ref KeyPairName
       ImageId: !Ref InstanceImageId
       BlockDeviceMappings:
-        - DeviceName: /dev/xvda
+        - DeviceName: /dev/sda1
           Ebs: 
             VolumeSize: 30
             VolumeType: gp3
             Encrypted: false
             DeleteOnTermination: true
       UserData: !Base64 |
-        #!/bin/bash -xe
-
+        #!/bin/bash -x
+        cd /home/ubuntu/
         git clone https://github.com/simon-fredrich/crossplane-setup.git
         cd crossplane-setup
         sh ./setup.sh

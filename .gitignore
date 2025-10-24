@@ -1,2 +1,5 @@
 gitlab-files/
 kubernetes-files/
+.minikube
+.config
+.cache

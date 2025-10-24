@@ -23,7 +23,7 @@ spec:
             metadata:
               name: {{ .observed.composite.resource.spec.projectName1 }}
               annotations:
-                crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName1 }}
+                #crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName1 }}
                 gotemplating.fn.crossplane.io/composition-resource-name: {{ .observed.composite.resource.spec.projectName1 }}-crn
             spec:
               forProvider:
@@ -32,7 +32,7 @@ spec:
               providerConfigRef:
                 name: gitlab-provider
               writeConnectionSecretToRef:
-                name: {{ .observed.composite.resource.spec.projectName1 }}
+                name: {{ .observed.composite.resource.spec.projectName1 }}-secret
                 namespace: crossplane-system
             ---
             apiVersion: projects.gitlab.crossplane.io/v1alpha1
@@ -40,8 +40,8 @@ spec:
             metadata:
               name: {{ .observed.composite.resource.spec.projectName2 }}
               annotations:
-                crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName2 }}
-                gotemplating.fn.crossplane.io/composition-resource-name: {{ .observed.composite.resource.spec.projectName1 }}-crn
+                #crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName2 }}
+                gotemplating.fn.crossplane.io/composition-resource-name: {{ .observed.composite.resource.spec.projectName2 }}-crn
             spec:
               forProvider:
                 name: {{ .observed.composite.resource.spec.projectName2 }}
@@ -49,5 +49,5 @@ spec:
               providerConfigRef:
                 name: gitlab-provider
               writeConnectionSecretToRef:
-                name: {{ .observed.composite.resource.spec.projectName2 }}
+                name: {{ .observed.composite.resource.spec.projectName2 }}-secret
                 namespace: crossplane-system

@@ -24,6 +24,7 @@ echo 'alias kubectl="minikube kubectl --"' >> $user_dir/.bashrc
 echo 'alias kg="kubectl get"' >> $user_dir/.bashrc
 echo 'alias ka="kubectl apply"' >> $user_dir/.bashrc
 echo 'alias kd="kubectl describe"' >> $user_dir/.bashrc
+echo 'alias k="kubectl"' >> $user_dir/.bashrc
 source $user_dir/.bashrc
 
 # install helm

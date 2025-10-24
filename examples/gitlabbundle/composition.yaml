@@ -24,11 +24,17 @@ spec:
               name: {{ .observed.composite.resource.spec.groupName }}
               annotations:
                 crossplane.io/external-name: {{ .observed.composite.resource.spec.groupName }}
+                gotemplating.fn.crossplane.io/composition-resource-name: group
             spec:
               forProvider:
                 name: {{ .observed.composite.resource.spec.groupName }}
                 path: {{ .observed.composite.resource.spec.groupPath }}
                 parentId: 117234999
+              providerConfigRef:
+                name: gitlab-provider
+              writeConnectionSecretToRef:
+                name: {{ .observed.composite.resource.spec.groupName }}-secret
+                namespace: crossplane-system
             ---
             apiVersion: projects.gitlab.crossplane.io/v1alpha1
             kind: Project
@@ -39,4 +45,9 @@ spec:
             spec:
               forProvider:
                 name: {{ .observed.composite.resource.spec.projectName }}
-                namespaceId: {{ .observed.}}
+                namespaceId: {{ ( index $.observed.resources "group" ).resource.status.atProvider.id }}
+              providerConfigRef:
+                name: gitlab-provider
+              writeConnectionSecretToRef:
+                name: {{ .observed.composite.resource.spec.projectName }}-secret
+                namespace: crossplane-system

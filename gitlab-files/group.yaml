@@ -2,17 +2,16 @@ apiVersion: groups.gitlab.crossplane.io/v1alpha1
 kind: Group
 metadata:
   name: example-group
+  annotations:
+    #crossplane.io/external-name: Example Group
 spec:
+  managementPolicies: ["Observe"]
   forProvider:
     # If not set, metadata.name will be used instead.
     name: "Example Group"
     path: "example-group-path"
     description: "example group description"
-    sharedWithGroups:
-      - groupId: "example group id 1"
-        groupAccessLevel: "example access level 1"
-      - groupId: "example group id 2"
-        groupAccessLevel: "example access level 2"
+    parentId: 117234999
   providerConfigRef:
     name: gitlab-provider
   # a reference to a Kubernetes secret to which the controller will write the runnersToken

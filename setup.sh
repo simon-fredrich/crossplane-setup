@@ -63,3 +63,5 @@ minikube kubectl -- apply -f provider/provider-helm.yaml
 # create daily shutdown
 echo "create crontab for daily shutdown of the server"
 (crontab -l 2>/dev/null; echo "30 18 * * * poweroff") | sudo crontab -
+
+sudo chown ubuntu $crossplane_setup

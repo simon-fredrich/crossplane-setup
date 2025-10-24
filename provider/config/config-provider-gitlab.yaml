@@ -13,3 +13,5 @@ spec:
       namespace: crossplane-system
       name: gitlab-credentials
       key: token
+  runtimeConfigRef:
+    name: enable-observe

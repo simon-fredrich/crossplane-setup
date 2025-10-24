@@ -10,7 +10,7 @@ spec:
   pipeline:
     - step: render-templates
       functionRef:
-        name: function-go-templating
+        name: crossplane-contrib-function-go-templating
       input:
         apiVersion: gotemplating.fn.crossplane.io/v1beta1
         kind: GoTemplate
@@ -24,10 +24,16 @@ spec:
               name: {{ .observed.composite.resource.spec.projectName1 }}
               annotations:
                 crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName1 }}
+                gotemplating.fn.crossplane.io/composition-resource-name: {{ .observed.composite.resource.spec.projectName1 }}-crn
             spec:
               forProvider:
                 name: {{ .observed.composite.resource.spec.projectName1 }}
                 namespaceId: {{ .observed.composite.resource.spec.namespaceId1}}
+              providerConfigRef:
+                name: gitlab-provider
+              writeConnectionSecretToRef:
+                name: {{ .observed.composite.resource.spec.projectName1 }}
+                namespace: crossplane-system
             ---
             apiVersion: projects.gitlab.crossplane.io/v1alpha1
             kind: Project
@@ -35,7 +41,13 @@ spec:
               name: {{ .observed.composite.resource.spec.projectName2 }}
               annotations:
                 crossplane.io/external-name: {{ .observed.composite.resource.spec.projectName2 }}
+                gotemplating.fn.crossplane.io/composition-resource-name: {{ .observed.composite.resource.spec.projectName1 }}-crn
             spec:
               forProvider:
                 name: {{ .observed.composite.resource.spec.projectName2 }}
                 namespaceId: {{ .observed.composite.resource.spec.namespaceId2}}
+              providerConfigRef:
+                name: gitlab-provider
+              writeConnectionSecretToRef:
+                name: {{ .observed.composite.resource.spec.projectName2 }}
+                namespace: crossplane-system
